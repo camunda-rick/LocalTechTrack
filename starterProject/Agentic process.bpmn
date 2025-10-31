@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="dc14cf5" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="453d943" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="Process_ClocalAgentic" name="Agentic process" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="Input received">
       <bpmn:extensionElements>
-        <zeebe:formDefinition formId="Form_ClocalInquire" />
+        <zeebe:formDefinition formId="Form_ClocalInquireJoke" />
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0i6xktj</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0i6xktj" sourceRef="StartEvent_1" targetRef="Activity_createPrompt" />
-    <bpmn:scriptTask id="Activity_createPrompt" name="Create prompt">
-      <bpmn:extensionElements>
-        <zeebe:script expression="=&#34;someone want to send a message to &#34; + person + &#34; and i want to say &#34; + message + &#34; The sender of the message is &#34;+ sender" resultVariable="userPrompt" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0i6xktj</bpmn:incoming>
-      <bpmn:outgoing>Flow_1seyr7r</bpmn:outgoing>
-    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0i6xktj" sourceRef="StartEvent_1" targetRef="Gateway_0vnwa0m" />
     <bpmn:exclusiveGateway id="Gateway_0vnwa0m">
-      <bpmn:incoming>Flow_1seyr7r</bpmn:incoming>
       <bpmn:incoming>Flow_0xvuazc</bpmn:incoming>
+      <bpmn:incoming>Flow_0i6xktj</bpmn:incoming>
       <bpmn:outgoing>Flow_0o1odof</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_1seyr7r" sourceRef="Activity_createPrompt" targetRef="Gateway_0vnwa0m" />
     <bpmn:sequenceFlow id="Flow_0o1odof" sourceRef="Gateway_0vnwa0m" targetRef="Activity_AITaskAgent" />
     <bpmn:serviceTask id="Activity_AITaskAgent" name="AI Task Agent" zeebe:modelerTemplate="io.camunda.connectors.agenticai.aiagent.v1" zeebe:modelerTemplateVersion="4" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNBNTZFRkYiLz4KPG1hc2sgaWQ9InBhdGgtMi1vdXRzaWRlLTFfMTg1XzYiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjQiIHk9IjQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iYmxhY2siPgo8cmVjdCBmaWxsPSJ3aGl0ZSIgeD0iNCIgeT0iNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMDEwNSAxMi4wOTg3QzE4LjQ5IDEwLjU4OTQgMTcuMTU5NCA4LjEwODE0IDE2LjE3OTkgNi4wMTEwM0MxNi4xNTIgNi4wMDQ1MSAxNi4xMTc2IDYgMTYuMDc5NCA2QzE2LjA0MTEgNiAxNi4wMDY2IDYuMDA0NTEgMTUuOTc4OCA2LjAxMTA0QzE0Ljk5OTQgOC4xMDgxNCAxMy42Njk3IDEwLjU4ODkgMTIuMTQ4MSAxMi4wOTgxQzEwLjYyNjkgMTMuNjA3MSA4LjEyNTY4IDE0LjkyNjQgNi4wMTE1NyAxNS44OTgxQzYuMDA0NzQgMTUuOTI2MSA2IDE1Ljk2MTEgNiAxNkM2IDE2LjAzODcgNi4wMDQ2OCAxNi4wNzM2IDYuMDExNDQgMTYuMTAxNEM4LjEyNTE5IDE3LjA3MjkgMTAuNjI2MiAxOC4zOTE5IDEyLjE0NzcgMTkuOTAxNkMxMy42Njk3IDIxLjQxMDcgMTQuOTk5NiAyMy44OTIgMTUuOTc5MSAyNS45ODlDMTYuMDA2OCAyNS45OTU2IDE2LjA0MTEgMjYgMTYuMDc5MyAyNkMxNi4xMTc1IDI2IDE2LjE1MTkgMjUuOTk1NCAxNi4xNzk2IDI1Ljk4OUMxNy4xNTkxIDIzLjg5MiAxOC40ODg4IDIxLjQxMSAyMC4wMDk5IDE5LjkwMjFNMjAuMDA5OSAxOS45MDIxQzIxLjUyNTMgMTguMzk4NyAyMy45NDY1IDE3LjA2NjkgMjUuOTkxNSAxNi4wODI0QzI1Ljk5NjUgMTYuMDU5MyAyNiAxNi4wMzEgMjYgMTUuOTk5N0MyNiAxNS45Njg0IDI1Ljk5NjUgMTUuOTQwMyAyNS45OTE1IDE1LjkxNzFDMjMuOTQ3NCAxNC45MzI3IDIxLjUyNTkgMTMuNjAxIDIwLjAxMDUgMTIuMDk4NyIvPgo8L21hc2s+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjAuMDEwNSAxMi4wOTg3QzE4LjQ5IDEwLjU4OTQgMTcuMTU5NCA4LjEwODE0IDE2LjE3OTkgNi4wMTEwM0MxNi4xNTIgNi4wMDQ1MSAxNi4xMTc2IDYgMTYuMDc5NCA2QzE2LjA0MTEgNiAxNi4wMDY2IDYuMDA0NTEgMTUuOTc4OCA2LjAxMTA0QzE0Ljk5OTQgOC4xMDgxNCAxMy42Njk3IDEwLjU4ODkgMTIuMTQ4MSAxMi4wOTgxQzEwLjYyNjkgMTMuNjA3MSA4LjEyNTY4IDE0LjkyNjQgNi4wMTE1NyAxNS44OTgxQzYuMDA0NzQgMTUuOTI2MSA2IDE1Ljk2MTEgNiAxNkM2IDE2LjAzODcgNi4wMDQ2OCAxNi4wNzM2IDYuMDExNDQgMTYuMTAxNEM4LjEyNTE5IDE3LjA3MjkgMTAuNjI2MiAxOC4zOTE5IDEyLjE0NzcgMTkuOTAxNkMxMy42Njk3IDIxLjQxMDcgMTQuOTk5NiAyMy44OTIgMTUuOTc5MSAyNS45ODlDMTYuMDA2OCAyNS45OTU2IDE2LjA0MTEgMjYgMTYuMDc5MyAyNkMxNi4xMTc1IDI2IDE2LjE1MTkgMjUuOTk1NCAxNi4xNzk2IDI1Ljk4OUMxNy4xNTkxIDIzLjg5MiAxOC40ODg4IDIxLjQxMSAyMC4wMDk5IDE5LjkwMjFNMjAuMDA5OSAxOS45MDIxQzIxLjUyNTMgMTguMzk4NyAyMy45NDY1IDE3LjA2NjkgMjUuOTkxNSAxNi4wODI0QzI1Ljk5NjUgMTYuMDU5MyAyNiAxNi4wMzEgMjYgMTUuOTk5N0MyNiAxNS45Njg0IDI1Ljk5NjUgMTUuOTQwMyAyNS45OTE1IDE1LjkxNzFDMjMuOTQ3NCAxNC45MzI3IDIxLjUyNTkgMTMuNjAxIDIwLjAxMDUgMTIuMDk4NyIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMC4wMTA1IDEyLjA5ODdDMTguNDkgMTAuNTg5NCAxNy4xNTk0IDguMTA4MTQgMTYuMTc5OSA2LjAxMTAzQzE2LjE1MiA2LjAwNDUxIDE2LjExNzYgNiAxNi4wNzk0IDZDMTYuMDQxMSA2IDE2LjAwNjYgNi4wMDQ1MSAxNS45Nzg4IDYuMDExMDRDMTQuOTk5NCA4LjEwODE0IDEzLjY2OTcgMTAuNTg4OSAxMi4xNDgxIDEyLjA5ODFDMTAuNjI2OSAxMy42MDcxIDguMTI1NjggMTQuOTI2NCA2LjAxMTU3IDE1Ljg5ODFDNi4wMDQ3NCAxNS45MjYxIDYgMTUuOTYxMSA2IDE2QzYgMTYuMDM4NyA2LjAwNDY4IDE2LjA3MzYgNi4wMTE0NCAxNi4xMDE0QzguMTI1MTkgMTcuMDcyOSAxMC42MjYyIDE4LjM5MTkgMTIuMTQ3NyAxOS45MDE2QzEzLjY2OTcgMjEuNDEwNyAxNC45OTk2IDIzLjg5MiAxNS45NzkxIDI1Ljk4OUMxNi4wMDY4IDI1Ljk5NTYgMTYuMDQxMSAyNiAxNi4wNzkzIDI2QzE2LjExNzUgMjYgMTYuMTUxOSAyNS45OTU0IDE2LjE3OTYgMjUuOTg5QzE3LjE1OTEgMjMuODkyIDE4LjQ4ODggMjEuNDExIDIwLjAwOTkgMTkuOTAyMU0yMC4wMDk5IDE5LjkwMjFDMjEuNTI1MyAxOC4zOTg3IDIzLjk0NjUgMTcuMDY2OSAyNS45OTE1IDE2LjA4MjRDMjUuOTk2NSAxNi4wNTkzIDI2IDE2LjAzMSAyNiAxNS45OTk3QzI2IDE1Ljk2ODQgMjUuOTk2NSAxNS45NDAzIDI1Ljk5MTUgMTUuOTE3MUMyMy45NDc0IDE0LjkzMjcgMjEuNTI1OSAxMy42MDEgMjAuMDEwNSAxMi4wOTg3IiBzdHJva2U9IiM0OTFEOEIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgbWFzaz0idXJsKCNwYXRoLTItb3V0c2lkZS0xXzE4NV82KSIvPgo8L3N2Zz4K">
       <bpmn:extensionElements>
@@ -36,7 +28,7 @@
           <zeebe:input source="=0.2" target="provider.bedrock.model.parameters.temperature" />
           <zeebe:input source="=0.1" target="provider.bedrock.model.parameters.topP" />
           <zeebe:input source="=&#34;You are **TaskAgent**, a helpful, generic chat agent that can handle a wide variety of customer requests using your own domain knowledge **and** any tools explicitly provided to you at runtime.&#10;&#10;────────────────────────────────&#10;# 0. CONTEXT — WHO IS “USER”?&#10;────────────────────────────────&#10;• **Every incoming user message is from the customer.**  &#10;• Treat “user” and “customer” as the same person throughout the conversation.  &#10;• Internal staff or experts communicate only through the expert-communication tool(s).&#10;&#10;────────────────────────────────&#10;# 1. MANDATORY TOOL-DRIVEN WORKFLOW&#10;────────────────────────────────&#10;For **every** customer request, follow this exact sequence:&#10;&#10;1. **Inspect** the full list of available tools.  &#10;2. **Evaluate** each tool’s relevance.  &#10;3. **Invoke at least one relevant tool** *before* replying to the customer.  &#10;   • Call the same tool multiple times with different inputs if useful.  &#10;   • If no domain-specific tool fits, you **must**  &#10;     a. call a generic search / knowledge-retrieval tool **or**  &#10;     b. escalate via the expert-communication tool (e.g. `ask_expert`, `escalate_expert`).  &#10;   • Only if the expert confirms that no tool can help may you answer from general knowledge.  &#10;   • Any decision to skip a potentially helpful tool must be justified inside `&#60;reflection&#62;`.  &#10;4. **Communication mandate**:  &#10;   • To gather more information from the **customer**, call the *customer-communication tool* (e.g. `ask_customer`, `send_customer_msg`).  &#10;   • To seek guidance from an **expert**, call the *expert-communication tool*.  &#10;5. **Never** invent or call tools that are not in the supplied list.  &#10;6. After exhausting every relevant tool—and expert escalation if required—if you still cannot help, reply exactly with  &#10;   `ERROR: &#60;brief explanation&#62;`.&#10;&#10;────────────────────────────────&#10;# 2. DATA PRIVACY &#38; LOOKUPS&#10;────────────────────────────────&#10;When real-person data or contact details are involved, do **not** fabricate information.  &#10;Use the appropriate lookup tools; if data cannot be retrieved, reply with the standard error message above.&#10;&#10;────────────────────────────────&#10;# 3. CHAIN-OF-THOUGHT FORMAT  (MANDATORY BEFORE EVERY TOOL CALL)&#10;────────────────────────────────&#10;Wrap minimal, inspectable reasoning in *exactly* this XML template:&#10;&#10;&#60;thinking&#62;&#10;  &#60;context&#62;…briefly state the customer’s need and current state…&#60;/context&#62;&#10;  &#60;reflection&#62;…list candidate tools, justify which you will call next and why…&#60;/reflection&#62;&#10;&#60;/thinking&#62;&#10;&#10;Reveal **no** additional private reasoning outside these tags.&#10;&#10;────────────────────────────────&#10;# 4. SATISFACTION CONFIRMATION, FINAL EMAIL &#38; TASK RESOLUTION&#10;────────────────────────────────&#10;A. When you believe the request is fulfilled, end your reply with a confirmation question such as  &#10;   “Does this fully resolve your issue?”  &#10;B. If the customer answers positively (e.g. “yes”, “that’s perfect”, “thanks”):  &#10;   1. **Immediately call** the designated email-delivery tool (e.g. `send_email`, `send_customer_msg`) with an appropriate subject and body that contains the final solution.  &#10;   2. After that tool call, your *next* chat message must contain **only** this word:  &#10;      RESOLVED  &#10;C. If the customer’s very next message already expresses satisfaction without the confirmation question, do step B immediately.  &#10;D. Never append anything after “RESOLVED”.  &#10;E. If no email-delivery tool exists, escalate to the expert-communication tool; if the expert confirms none exists, reply with an error as described in §1-6.&#34;" target="data.systemPrompt.prompt" />
-          <zeebe:input source="=userPrompt" target="data.userPrompt.prompt" />
+          <zeebe:input source="=userTopic" target="data.userPrompt.prompt" />
           <zeebe:input source="Subprocess_AvailableTools" target="data.tools.containerElementId" />
           <zeebe:input source="=toolCallResults" target="data.tools.toolCallResults" />
           <zeebe:input source="=agent.context" target="data.context" />
@@ -76,7 +68,7 @@
       </bpmn:multiInstanceLoopCharacteristics>
       <bpmn:scriptTask id="Activity_Calculate" name="Calculate">
         <bpmn:extensionElements>
-          <zeebe:script expression="=1+1" resultVariable="calculationResult" />
+          <zeebe:script expression="=1+1" resultVariable="toolCallResult" />
         </bpmn:extensionElements>
       </bpmn:scriptTask>
     </bpmn:adHocSubProcess>
@@ -91,12 +83,6 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_ClocalAgentic">
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="150" y="100" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0i51v3o_di" bpmnElement="Activity_createPrompt">
-        <dc:Bounds x="240" y="78" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0vnwa0m_di" bpmnElement="Gateway_0vnwa0m" isMarkerVisible="true">
         <dc:Bounds x="395" y="93" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -110,6 +96,12 @@
           <dc:Bounds x="776" y="63" width="89" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="212" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="195" y="143" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0oo3lko_di" bpmnElement="Subprocess_AvailableTools" isExpanded="true">
         <dc:Bounds x="380" y="270" width="520" height="240" />
         <bpmndi:BPMNLabel />
@@ -121,11 +113,7 @@
         <dc:Bounds x="1022" y="100" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0i6xktj_di" bpmnElement="Flow_0i6xktj">
-        <di:waypoint x="186" y="118" />
-        <di:waypoint x="240" y="118" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1seyr7r_di" bpmnElement="Flow_1seyr7r">
-        <di:waypoint x="340" y="118" />
+        <di:waypoint x="248" y="118" />
         <di:waypoint x="395" y="118" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0o1odof_di" bpmnElement="Flow_0o1odof">
