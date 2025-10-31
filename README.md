@@ -19,7 +19,10 @@ Note: the agent is ready-to-use with a simple calculate step. Below are the step
 
 # (Optional) Adding a User task to display the result
 1. Add a user task after the agent toolbox
-2. Create a form and link it to the task. Have the form display the **delivery** and **setup** variables
+2. Set input variables to be displayed. e.g.:
+* **setup** = toolCallResults[1].content.setup
+* **delivery** = toolCallResults[1].content.delivery
+3. Create a form and link it to the task. Have the form display the **delivery** and **setup** variables
 
 
 
