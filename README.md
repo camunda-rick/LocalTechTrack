@@ -2,7 +2,7 @@
 Starter project to create your own Agent for Camunda local 2025-H2
 
 # Technical Pre-requisites
-1. Cluster 8.8.0 (and above)
+1. Cluster 8.8.0 (and above). If you don't have a Camunda environment yet, you can signup for a free SaaS trial [here](https://accounts.cloud.camunda.io/signup)
 2. Model provider (e.g. AWS Bedrock, Anthropic, Open AI compatible) and corresponding secrets
 
 # Steps to run the agent
